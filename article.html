@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>INFOBOLING</title>
+    <meta name="description" content="Info Bola Inggris" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="css/materialize.min.css" />
+    <link rel="manifest" href="manifest.json" />
+    <meta name="theme-color" content="#00897B" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap"
+      rel="stylesheet">
+    <link rel="icon" href="assets/logo-512x512.png" sizes="512x512">
+  </head>
+  <body>
+    <!-- Navigasi -->
+    <nav class="light-green darken-2 transparent z-depth-0" role="navigation">
+      <div class="nav-wrapper container">
+        <a href="./index.html#tim" class="brand-logo" id="logo-container"
+          style="font-family: 'Fredoka One', cursive;">INFOBOLING</a>
+        <a href="./index.html" class="sidenav-trigger" data-target="nav-mobile">
+          <i class="material-icons">arrow_back</i>
+        </a>
+        <ul class="topnav right hide-on-med-and-down">
+          <li><a class="waves-effect" href="./index.html#timfavorit">Tim
+              Favorit</a></li>
+        </ul>
+        <ul class="sidenav" id="nav-mobile"></ul>
+      </div>
+    </nav>
+    <!-- Akhir Navigasi -->
+
+    <div class="container" id="body-content"></div>
+    <!-- tambahkan baris di bawah -->
+    <div class="fixed-action-btn">
+      <a class="btn-floating btn-large red" id="save">
+        <i class="large material-icons">save</i>
+      </a>
+      <a class="btn-floating btn-large red" id="delete">
+        <i class="large material-icons">delete</i>
+      </a>
+    </div>
+
+    <script src="js/materialize.min.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/idb.js"></script>
+    <script src="js/db.js"></script>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+
+        var urlParams = new URLSearchParams(window.location.search);
+        var idParam = urlParams.get("id");
+        var isFromSaved = urlParams.get("saved");
+        var btnSave = document.getElementById("save");
+        var btnDelete = document.getElementById("delete");
+        btnDelete.style.display = 'none';
+        if (isFromSaved) {
+          // Hide fab jika dimuat dari indexed db
+          btnSave.style.display = 'none';
+          btnDelete.style.display = 'block';
+
+          // ambil artikel lalu tampilkan
+          getSavedArticleById();
+        } else {
+          var item = getArticleById();
+        }
+        btnSave.onclick = function () {
+          item.then(function (datatim) {
+            saveForLater(datatim);
+          });
+        };
+
+        btnDelete.onclick = function () {
+          deleteById(idParam);
+          btnDelete.style.display = 'none';
+        };
+
+      });
+    </script>
+  </body>
+</html>

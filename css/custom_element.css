@@ -1,0 +1,23 @@
+body {
+--stripe: #abd7eb;
+--bg: #ffffff;
+
+background: linear-gradient(135deg, var(--bg) 25%, transparent 25%) -50px 0,
+    linear-gradient(225deg, var(--bg) 25%, transparent 25%) -50px 0,
+    linear-gradient(315deg, var(--bg) 25%, transparent 25%),
+    linear-gradient(45deg, var(--bg) 25%, transparent 25%);
+background-size: 100px 100px;
+background-color: var(--stripe);
+}
+
+h6 {
+text-align: center;
+}
+
+img {
+padding: 20%;
+}
+
+.footer-fixed footer {
+padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+}
